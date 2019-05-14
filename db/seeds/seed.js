@@ -1,5 +1,5 @@
 const { articlesData, usersData, commentsData, topicsData } = require('../data');
-const { timeConverter } = require('../utils.js')
+const { timeConverter, articleIdLookup, fieldConverter, articleIdReferencer } = require('../utils.js')
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
@@ -11,23 +11,23 @@ exports.seed = (knex, Promise) => {
         .returning('*');
     })
     .then((topicRows) => {
-      let usersPromise = knex('users')
+      return knex('users')
         .insert(usersData)
         .returning('*')
-      return Promise.all([usersPromise, topicRows])
     })
-    .then(([userRows, topicRows]) => {
-      console.log(mystery);
-      convertedArticlesData = timeConverter(articlesData)
-
+    .then(() => {
+      const convertedArticlesData = timeConverter(articlesData)
       return knex('articles')
         .insert(convertedArticlesData)
         .returning('*')
     })
-    .then(() => {
-      convertedCommentsData = timeConverter(commentsData)
+    .then((articleRows) => {
+      const timeConvertedCommentsData = timeConverter(commentsData);
+      const fieldAndTimeCorrectedCommentsData = fieldConverter(timeConvertedCommentsData)
+      const idObj = articleIdLookup(articleRows)
+      const convertedComments = articleIdReferencer(fieldAndTimeCorrectedCommentsData, idObj)
       return knex('comments')
-        .insert(convertedCommentsData)
+        .insert(convertedComments)
         .returning('*')
     })
 };
