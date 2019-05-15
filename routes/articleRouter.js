@@ -1,9 +1,10 @@
 const articleRouter = require('express').Router();
 const { methodNotAllowed } = require('../errors');
+const getAllArticles = require('../controllers/articleController')
 
 articleRouter
     .route('/')
-    .get((req, res) => res.send('all ok from articleRouter'))
+    .get(getAllArticles)
     .all(methodNotAllowed);
 
 

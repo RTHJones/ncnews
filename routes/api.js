@@ -1,10 +1,9 @@
 const apiRouter = require('express').Router();
 const { methodNotAllowed } = require('../errors');
-const articleRouter = require('./articleRouter');
-const commentRouter = require('./commentRouter');
-const userRouter = require('./userRouter');
+const { topicRouter, articleRouter, commentRouter, userRouter } = require('./');
 
 
+apiRouter.use('/topics', topicRouter);
 apiRouter.use('/articles', articleRouter)
 apiRouter.use('/comments', commentRouter);
 apiRouter.use('/users', userRouter);
