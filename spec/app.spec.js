@@ -1,10 +1,11 @@
 process.env.NODE_ENV = 'test';
-
-const { expect } = require('chai');
+const chai = require('chai');
+const { expect } = chai;
 const request = require('supertest');
-
+const chaiSorted = require('chai-sorted');
 const app = require('../app');
 const connection = require('../db/connection');
+chai.use(chaiSorted);
 
 describe('/', () => {
   beforeEach(() => connection.seed.run());
@@ -40,6 +41,22 @@ describe('/', () => {
             expect(res.body.articles[0]).to.contain.keys('author', 'title', 'article_id', 'topic', 'created_at', 'votes', 'comment_count')
           });
       });
-    })
+      it('accepts queries and sorts by default values', () => {
+        return request(app)
+          .get('/api/articles?sort_by=title')
+          .expect(200)
+          .then(res => {
+            expect(res.body.articles).to.be.sortedBy('title', { descending: true });
+          });
+      });
+      it('accepts queries and sorts appropriately when passed other sort criteria', () => {
+        return request(app)
+          .get('/api/articles?sort_by=votes&order=asc')
+          .expect(200)
+          .then(res => {
+            expect(res.body.articles).to.be.sortedBy('votes', { descending: false });
+          });
+      });
+    });
   });
 });
