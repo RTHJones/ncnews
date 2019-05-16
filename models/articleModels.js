@@ -50,7 +50,7 @@ exports.fetchArticleAndPatch = ({ article_id }, { inc_votes }) => {
         .returning('*')
 }
 
-exports.fetchCommentsByArticleId = ({ article_id }) => {
+exports.fetchCommentsByArticleId = ({ article_id }, { sort_by, order }) => {
     return connection
         .select(
             'comment_id',
@@ -61,4 +61,11 @@ exports.fetchCommentsByArticleId = ({ article_id }) => {
         )
         .from('comments')
         .where({ 'article_id': article_id })
+        .orderBy(sort_by || 'created_at', order || 'desc')
+}
+
+exports.postNewComment = ({ article_id }, { username, body }) => {
+    return connection('comments')
+        .insert({ 'author': username, 'body': body, 'article_id': article_id })
+        .returning('*')
 }
