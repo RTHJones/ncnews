@@ -57,6 +57,22 @@ describe('/', () => {
             expect(res.body.articles).to.be.sortedBy('votes', { descending: false });
           });
       });
+      it('filters by author', () => {
+        return request(app)
+          .get('/api/articles?author=butter_bridge')
+          .expect(200)
+          .then(res => {
+            expect(res.body.articles[0].author).to.equal('butter_bridge');
+          });
+      });
+      it('filters by topic', () => {
+        return request(app)
+          .get('/api/articles?topic=cats')
+          .expect(200)
+          .then(res => {
+            expect(res.body.articles[0].topic).to.equal('cats');
+          });
+      });
     });
   });
 });
