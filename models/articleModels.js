@@ -42,3 +42,23 @@ exports.fetchArticleById = ({ article_id }) => {
         .leftJoin('comments', 'articles.article_id', 'comments.article_id')
         .groupBy('articles.article_id')
 }
+
+exports.fetchArticleAndPatch = ({ article_id }, { inc_votes }) => {
+    return connection('articles')
+        .where({ 'article_id': article_id })
+        .increment({ 'votes': inc_votes })
+        .returning('*')
+}
+
+exports.fetchCommentsByArticleId = ({ article_id }) => {
+    return connection
+        .select(
+            'comment_id',
+            'votes',
+            'created_at',
+            'author',
+            'body'
+        )
+        .from('comments')
+        .where({ 'article_id': article_id })
+}

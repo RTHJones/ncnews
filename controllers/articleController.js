@@ -1,7 +1,11 @@
-const { fetchAllArticles, fetchArticleById } = require('../models/articleModels');
+const {
+    fetchAllArticles,
+    fetchArticleById,
+    fetchArticleAndPatch,
+    fetchCommentsByArticleId
+} = require('../models/articleModels');
 
 const getAllArticles = (req, res, next) => {
-
     fetchAllArticles(req.query)
         .then((articleData) => {
             res.status(200).send({ articles: articleData })
@@ -10,7 +14,6 @@ const getAllArticles = (req, res, next) => {
 };
 
 const getArticleById = (req, res, next) => {
-
     fetchArticleById(req.params)
         .then((articleData) => {
             res.status(200).send({ article: articleData })
@@ -18,4 +21,24 @@ const getArticleById = (req, res, next) => {
         .catch(next)
 }
 
-module.exports = { getAllArticles, getArticleById };
+const patchArticleById = (req, res, next) => {
+    fetchArticleAndPatch(req.params, req.query)
+        .then((articleData) => {
+            res.status(200).send({ article: articleData })
+        })
+        .catch(next)
+}
+
+const getCommentsByArticleId = (req, res, next) => {
+    fetchCommentsByArticleId(req.params)
+        .then((commmentsData) => {
+            res.status(200).send({ commments: commmentsData })
+        })
+        .catch(next)
+}
+
+const postCommenttoArticle = (req, res, next) => {
+
+}
+
+module.exports = { getAllArticles, getArticleById, patchArticleById, getCommentsByArticleId, postCommenttoArticle };
