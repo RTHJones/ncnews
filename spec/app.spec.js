@@ -89,7 +89,7 @@ describe('/', () => {
           .get('/api/articles/1/comments')
           .expect(200)
           .then(res => {
-            console.log(res.body.comments) // is returning an empty array here but not on insomnia!
+            console.log(res.body.comments)
             expect(res.body.comments).to.be.an('array');
             expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'body', 'created_at', 'votes')
           });
@@ -99,9 +99,21 @@ describe('/', () => {
           .post('/api/articles/2/comments?username=rogersop&body=thisismysecondcommentpost')
           .expect(200)
           .then(res => {
-            console.log(res.body.comments) // is returning an empty array here but not on insomnia!
+            console.log(res.body.comments)
             expect(res.body.comments).to.be.an('array');
             expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'article_id', 'body', 'created_at', 'votes')
+          });
+      });
+    })
+    describe('/comments', () => {
+      it('changes votes on a comment and returns that comment', () => {
+        return request(app)
+          .patch('/api/comments/1?inc_votes=100')
+          .expect(200)
+          .then(res => {
+            expect(res.body.comment).to.be.an('array');
+            expect(res.body.comment[0]).to.contain.keys('author', 'article_id', 'comment_id', 'votes', 'created_at', 'body')
+            expect(res.body.comment[0].votes).to.equal(116)
           });
       });
     })
