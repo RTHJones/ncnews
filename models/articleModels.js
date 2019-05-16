@@ -25,3 +25,20 @@ exports.fetchAllArticles = ({ sort_by, order, author, topic }) => {
         .groupBy('articles.article_id')
         .orderBy(sort_by || 'title', order || 'desc')
 };
+
+exports.fetchArticleById = ({ article_id }) => {
+    return connection
+        .select(
+            'articles.author',
+            'title',
+            'articles.article_id',
+            'articles.body',
+            'topic',
+            'articles.created_at',
+            'articles.votes')
+        .from('articles')
+        .where('articles.article_id', article_id)
+        .count({ 'comment_count': 'comments.article_id' })
+        .leftJoin('comments', 'articles.article_id', 'comments.article_id')
+        .groupBy('articles.article_id')
+}

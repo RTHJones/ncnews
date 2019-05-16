@@ -74,5 +74,16 @@ describe('/', () => {
           });
       });
     });
+    describe('/articles/:article_id', () => {
+      it('returns the correct article with the correct properties', () => {
+        return request(app)
+          .get('/api/articles/11')
+          .expect(200)
+          .then(res => {
+            expect(res.body.article).to.be.an('array');
+            expect(res.body.article[0]).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
+          });
+      });
+    })
   });
 });
