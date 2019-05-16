@@ -73,36 +73,36 @@ describe('/', () => {
             expect(res.body.articles[0].topic).to.equal('cats');
           });
       });
-    });
-    describe('/articles/:article_id', () => {
-      it('returns the correct article with the correct properties', () => {
-        return request(app)
-          .get('/api/articles/11')
-          .expect(200)
-          .then(res => {
-            expect(res.body.article).to.be.an('array');
-            expect(res.body.article[0]).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
-          });
-      });
-      it('returns the comments for the correct article, with the correct object properties', () => {
-        return request(app)
-          .get('/api/articles/1/comments')
-          .expect(200)
-          .then(res => {
-            console.log(res.body.comments)
-            expect(res.body.comments).to.be.an('array');
-            expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'body', 'created_at', 'votes')
-          });
-      });
-      it('posts comment to the correct article, and returns that comment', () => {
-        return request(app)
-          .post('/api/articles/2/comments?username=rogersop&body=thisismysecondcommentpost')
-          .expect(200)
-          .then(res => {
-            console.log(res.body.comments)
-            expect(res.body.comments).to.be.an('array');
-            expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'article_id', 'body', 'created_at', 'votes')
-          });
+      describe('/articles/:article_id', () => {
+        it('returns the correct article with the correct properties', () => {
+          return request(app)
+            .get('/api/articles/11')
+            .expect(200)
+            .then(res => {
+              expect(res.body.article).to.be.an('array');
+              expect(res.body.article[0]).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
+            });
+        });
+        it('returns the comments for the correct article, with the correct object properties', () => {
+          return request(app)
+            .get('/api/articles/1/comments')
+            .expect(200)
+            .then(res => {
+              console.log(res.body.comments)
+              expect(res.body.comments).to.be.an('array');
+              expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'body', 'created_at', 'votes')
+            });
+        });
+        it('posts comment to the correct article, and returns that comment', () => {
+          return request(app)
+            .post('/api/articles/2/comments?username=rogersop&body=thisismysecondcommentpost')
+            .expect(200)
+            .then(res => {
+              console.log(res.body.comments)
+              expect(res.body.comments).to.be.an('array');
+              expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'article_id', 'body', 'created_at', 'votes')
+            });
+        });
       });
     })
     describe('/comments', () => {
@@ -116,6 +116,26 @@ describe('/', () => {
             expect(res.body.comment[0].votes).to.equal(116)
           });
       });
+      describe('/comments/:comment_id', () => {
+        it('successfully deletes a comment', () => {
+          return request(app)
+            .delete('/api/comments/1')
+            .expect(204)
+        });
+      });
+    })
+    describe('/users', () => {
+      describe('/users/username', () => {
+        it('returns the details of the selected user', () => {
+          return request(app)
+            .get('/api/users/icellusedkars')
+            .expect(200)
+            .then(res => {
+              expect(res.body.user).to.be.an('array');
+              expect(res.body.user[0]).to.contain.keys('username', 'avatar_url', 'name')
+            });
+        });
+      })
     })
   });
 });

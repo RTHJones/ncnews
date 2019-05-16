@@ -12,7 +12,7 @@ const voteOnCommentById = (req, res, next) => {
 const deleteCommentById = (req, res, next) => {
     commentDeleter(req.params)
         .then((commentData) => {
-            res.status(204).send({comment:commentData, result: `comment ${req.paramscomment_id} deleted`})
+            res.status(204).send()
         })
         .catch(next);
 }

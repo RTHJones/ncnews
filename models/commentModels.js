@@ -8,9 +8,9 @@ exports.changeVote = ({ comment_id }, { inc_votes }) => {
         .returning('*')
 }
 
-exports.commentDeleter = ({comment_id}) => {
+exports.commentDeleter = ({ comment_id }) => {
     return connection('comments')
-    .where({'comment_id' : comment_id})
-    .del()
-    .returning('*')
+        .where({ 'comment_id': comment_id })
+        .del()
+        .returning('*')
 }
