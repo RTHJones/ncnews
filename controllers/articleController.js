@@ -20,9 +20,6 @@ const getAllArticles = (req, res, next) => {
 const getArticleById = (req, res, next) => {
     fetchArticleById(req.params)
         .then((articleData) => {
-            // if (!numericInputTester.test(req.params.article_id)) {
-            //     return Promise.reject({ status: 400, msg: 'please enter a valid article id format - numbers only!' })
-            // }
             if (articleData[0]) {
                 res.status(200).send({ article: articleData })
             }
