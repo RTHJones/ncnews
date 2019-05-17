@@ -4,7 +4,6 @@ const getAllTopics = (req, res, next) => {
 
     fetchAllTopics()
         .then((topicData) => {
-
             res.status(200).send({ topics: topicData })
         })
         .catch(next);

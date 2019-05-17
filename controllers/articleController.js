@@ -6,6 +6,8 @@ const {
     postNewComment
 } = require('../models/articleModels');
 
+//const numericInputTester = require('../db/utils')
+
 const getAllArticles = (req, res, next) => {
     fetchAllArticles(req.query)
         .then((articleData) => {
@@ -14,10 +16,19 @@ const getAllArticles = (req, res, next) => {
         .catch(next);
 };
 
+
 const getArticleById = (req, res, next) => {
     fetchArticleById(req.params)
         .then((articleData) => {
-            res.status(200).send({ article: articleData })
+            // if (!numericInputTester.test(req.params.article_id)) {
+            //     return Promise.reject({ status: 400, msg: 'please enter a valid article id format - numbers only!' })
+            // }
+            if (articleData[0]) {
+                res.status(200).send({ article: articleData })
+            }
+            else {
+                return Promise.reject({ status: 404, msg: `Article number: ${req.params.article_id} does not exist` })
+            }
         })
         .catch(next)
 }

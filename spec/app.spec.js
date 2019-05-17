@@ -88,7 +88,6 @@ describe('/', () => {
             .get('/api/articles/1/comments')
             .expect(200)
             .then(res => {
-              console.log(res.body.comments)
               expect(res.body.comments).to.be.an('array');
               expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'body', 'created_at', 'votes')
             });
@@ -101,6 +100,14 @@ describe('/', () => {
               console.log(res.body.comments)
               expect(res.body.comments).to.be.an('array');
               expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'article_id', 'body', 'created_at', 'votes')
+            });
+        });
+        it.only('returns a message and error code 404 if the article number doesnt exist', () => {
+          return request(app)
+            .get('/api/articles/11009955')
+            .expect(404)
+            .then(res => {
+              expect(res.text).to.equal('Article number: 11009955 does not exist');
             });
         });
       });
@@ -133,6 +140,15 @@ describe('/', () => {
             .then(res => {
               expect(res.body.user).to.be.an('array');
               expect(res.body.user[0]).to.contain.keys('username', 'avatar_url', 'name')
+            });
+        });
+        it('returns an error message and code if the user does not exist', () => {
+          return request(app)
+            .get('/api/users/robinjones')
+            .expect(404)
+            .then(res => {
+              console.log(res);
+              expect(res.error.text).to.equal('User: robinjones does not exist.');
             });
         });
       })

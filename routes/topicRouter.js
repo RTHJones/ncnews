@@ -7,5 +7,4 @@ topicRouter
     .get(getAllTopics)
     .all(methodNotAllowed);
 
-
 module.exports = topicRouter;
