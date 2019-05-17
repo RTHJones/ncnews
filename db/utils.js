@@ -35,13 +35,12 @@ const articleIdReferencer = (commentData, lookupObj) => {
     return newData
 }
 
-//const numericInputTester = /[0-9]/
+
 
 
 module.exports = {
     timeConverter,
     articleIdLookup,
     fieldConverter,
-    articleIdReferencer,
-    //numericInputTester
+    articleIdReferencer
 }

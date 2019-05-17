@@ -25,7 +25,7 @@ describe('/', () => {
         .get('/*')
         .expect(404)
         .then(res => {
-          expect(res.text).to.equal('route not found');
+          expect(res.text).to.equal('Route Not Found');
         });
     });
     describe('/topics', () => {
@@ -118,13 +118,13 @@ describe('/', () => {
               expect(res.text).to.equal('Article number: 11009955 does not exist');
             });
         });
-        it.only('returns a message and error code 400 if the user passes a non-integer as an article id', () => {
+        it('returns a message and error code 400 if the user passes a non-integer as an article id', () => {
           return request(app)
             .get('/api/articles/dogtoys')
             .expect(400)
             .then(res => {
               console.log(res)
-              expect(res.text).to.equal('User error - input not a valid number. Please enter a valid number to access articles.');
+              expect(res.text).to.equal('User error - input not a valid number. Please enter a valid number.');
             });
         });
       });

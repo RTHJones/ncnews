@@ -6,8 +6,6 @@ const {
     postNewComment
 } = require('../models/articleModels');
 
-//const numericInputTester = require('../db/utils')
-
 const getAllArticles = (req, res, next) => {
     fetchAllArticles(req.query)
         .then((articleData) => {
@@ -31,9 +29,17 @@ const getArticleById = (req, res, next) => {
 }
 
 const patchArticleById = (req, res, next) => {
+    if (!req.query) {
+        return Promise.reject({ status: 422, msg: `Please enter data to patch to article ${req.params.article_id}` })
+    }
     fetchArticleAndPatch(req.params, req.query)
         .then((articleData) => {
-            res.status(200).send({ article: articleData })
+            if (!articleData[0]) {
+                return Promise.reject({ status: 404, msg: `Article number: ${req.params.article_id} does not exist` })
+            }
+            else {
+                res.status(200).send({ article: articleData })
+            }
         })
         .catch(next)
 }
@@ -41,7 +47,13 @@ const patchArticleById = (req, res, next) => {
 const getCommentsByArticleId = (req, res, next) => {
     fetchCommentsByArticleId(req.params, req.query)
         .then((commentsData) => {
-            res.status(200).send({ comments: commentsData })
+            if (!commentsData[0]) {
+                return Promise.reject({ status: 404, msg: `No comments found for Article number: ${req.params.article_id}`})
+
+            }
+            else {
+                res.status(200).send({ comments: commentsData })
+            }
         })
         .catch(next)
 }
