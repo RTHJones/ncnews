@@ -10,8 +10,13 @@ apiRouter.use('/users', userRouter);
 
 apiRouter
   .route('/')
-  .get((req, res) => res.send({ ok: true }))
-  .all(methodNotAllowed);
+  .get((req, res) => res.send({
+    '/users': 'username',
+    '/articles': 'atricle_id',
+    '/comments': 'comment_id',
+    '/topics/': 'returns all topics'
+  }})
+    .all(methodNotAllowed);
 
 
 

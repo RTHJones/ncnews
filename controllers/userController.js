@@ -4,10 +4,10 @@ const getUserByUsername = (req, res, next) => {
     fetchUserByUsername(req.params)
         .then((userData) => {
             if (userData[0]) {
-                res.status(200).send({ user: userData })
+                res.status(200).send({ user: userData[0] })
             }
             else {
-                return Promise.reject({ status: 404, msg: `User: ${req.params.username} does not exist.` })
+                return Promise.reject({ status: 404, msg: `User: "${req.params.username}" does not exist.` })
             }
         })
         .catch(next)

@@ -7,18 +7,15 @@ const errLookup = {
     status: 422,
     msg: 'User input not recognised in database'
   },
-  'someothercode': {
-    status: 418,
-    msg: 'I am not in fact a teapot after all'
+  '42703': {
+    status: 400,
+    msg: 'Sort Criteria Invalid'
   },
-  'that last code was a CATastrophe!': {
-    status: 999,
-    msg: 'call the pun police!'
+  '23502': {
+    status: 400,
+    msg: 'Bad request - data incomplete'
   }
 }
-
-
-
 
 exports.routeNotFound = (req, res) => {
   res.status(404).send('Route Not Found');
@@ -31,21 +28,21 @@ exports.methodNotAllowed = (req, res) => {
 exports.handleErrors = (err, req, res, next) => {
   console.log(err, '<-- log from handleErrors function');
 
-  if (err.status === 404) {
+
+  if (errLookup[err.code]) {
+    res
+      .status(errLookup[err.code].status)
+      .send(errLookup[err.code].msg)
+  }
+  else if (err.status === 400 || err.status === 404) {
     res
       .status(err.status)
-      .send(err.msg);
+      .send(err.msg)
   }
   else if (err.status = 422) {
     res
       .status(err.status)
       .send(`The data provided is incorrect or incomplete, it can not be processed!`)
-  }
-
-  else if (errLookup[err.code]) {
-    res
-      .status(errLookup[err.code].status)
-      .send(errLookup[err.code].msg)
   }
   else {
     res
