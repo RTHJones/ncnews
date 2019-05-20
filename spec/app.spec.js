@@ -17,7 +17,7 @@ describe('/', () => {
         .get('/api')
         .expect(200)
         .then(({ body }) => {
-          expect(body.ok).to.equal(true);
+          expect(body).to.be.an('object');
         });
     });
     it('returns a bad route error if accessed without /api', () => {
@@ -132,7 +132,6 @@ describe('/', () => {
             .get('/api/articles/dogtoys')
             .expect(400)
             .then(res => {
-              console.log(res)
               expect(res.text).to.equal('User error - input not a valid number. Please enter a valid number.');
             });
         });
@@ -173,7 +172,6 @@ describe('/', () => {
             .get('/api/users/robinjones')
             .expect(404)
             .then(res => {
-              console.log(res);
               expect(res.error.text).to.equal('User: "robinjones" does not exist.');
             });
         });
