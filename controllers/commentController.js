@@ -2,12 +2,9 @@ const { changeVote, commentDeleter } = require('../models/commentModels')
 
 
 const voteOnCommentById = (req, res, next) => {
-    changeVote(req.params, req.query)
+    changeVote(req.params, req.body)
         .then((commentData) => {
-            //if (!req.query.inc_votes) return Promise.reject({ status: 400, msg: 'Please enter Patch Data' })
-            //else {
             res.status(200).send({ comment: commentData[0] })
-            //}
         })
         .catch(next);
 }

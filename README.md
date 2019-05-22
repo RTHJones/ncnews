@@ -1,4 +1,4 @@
-# real-nc-news
+# be-nc-news
 
 ## Available Scripts
 

@@ -40,8 +40,9 @@ const getArticleById = (req, res, next) => {
 }
 
 const patchArticleById = (req, res, next) => {
+    console.log(req.body)
 
-    fetchArticleAndPatch(req.params, req.query)
+    fetchArticleAndPatch(req.params, req.body)
         .then((articleData) => {
             if (!articleData[0]) {
                 return Promise.reject({ status: 404, msg: `Article number: ${req.params.article_id} does not exist` })
@@ -69,7 +70,7 @@ const getCommentsByArticleId = (req, res, next) => {
 }
 
 const postCommenttoArticle = (req, res, next) => {
-    postNewComment(req.params, req.query)
+    postNewComment(req.params, req.body)
         .then((commentsData) => {
             res.status(201).send({ comments: commentsData[0] })
         })

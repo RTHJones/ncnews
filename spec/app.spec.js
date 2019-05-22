@@ -111,7 +111,8 @@ describe('/', () => {
         });
         it('posts comment to the correct article, and returns that comment', () => {
           return request(app)
-            .post('/api/articles/2/comments?username=rogersop&body=thisismysecondcommentpost')
+            .post('/api/articles/2/comments')
+            .send({ 'username': 'rogersop', 'body': 'thisismysecondcommentpost' })
             .expect(201)
             .then(res => {
               console.log(res.body.comments)
@@ -140,7 +141,8 @@ describe('/', () => {
     describe('/comments', () => {
       it('changes votes on a comment and returns that comment', () => {
         return request(app)
-          .patch('/api/comments/1?inc_votes=100')
+          .patch('/api/comments/1')
+          .send({ 'inc_votes': 100 })
           .expect(200)
           .then(res => {
             expect(res.body.comment).to.be.an('object');
