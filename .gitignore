@@ -1,4 +1,5 @@
 node_modules
-knexfile.js
+
+sensitiveData.js
 .DS_Store
 Instructions.md
