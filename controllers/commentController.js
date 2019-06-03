@@ -4,7 +4,11 @@ const { changeVote, commentDeleter } = require('../models/commentModels')
 const voteOnCommentById = (req, res, next) => {
     changeVote(req.params, req.body)
         .then((commentData) => {
-            res.status(200).send({ comment: commentData[0] })
+            if (commentData[0]) {
+                res.status(200).send({ comment: commentData[0] })
+            } else {
+                return Promise.reject({ status: 404, msg: "Comment not found" })
+            }
         })
         .catch(next);
 }

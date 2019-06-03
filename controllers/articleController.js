@@ -40,7 +40,6 @@ const getArticleById = (req, res, next) => {
 }
 
 const patchArticleById = (req, res, next) => {
-    console.log(req.body)
 
     fetchArticleAndPatch(req.params, req.body)
         .then((articleData) => {
@@ -58,13 +57,13 @@ const patchArticleById = (req, res, next) => {
 const getCommentsByArticleId = (req, res, next) => {
     fetchCommentsByArticleId(req.params, req.query)
         .then((commentsData) => {
-            // if (!commentsData[0]) {
-            //     return Promise.reject({ status: 200, msg: `No comments found for Article number: ${req.params.article_id}` })
-
-            // }
-            // else {
-            res.status(200).send({ comments: commentsData })
-            // }
+            if (!commentsData[0]) {
+                return Promise.reject({ status: 404, msg: `Article ${req.params.article_id} not found` })
+            } else {
+                (commentsData) => {
+                    res.status(200).send({ comments: commentsData })
+                }
+            }
         })
         .catch(next)
 }
@@ -72,7 +71,7 @@ const getCommentsByArticleId = (req, res, next) => {
 const postCommenttoArticle = (req, res, next) => {
     postNewComment(req.params, req.body)
         .then((commentsData) => {
-            res.status(201).send({ comments: commentsData[0] })
+            res.status(201).send({ comment: commentsData[0] })
         })
         .catch(next)
 }

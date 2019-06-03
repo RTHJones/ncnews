@@ -27,8 +27,6 @@ exports.methodNotAllowed = (req, res) => {
 
 exports.handleErrors = (err, req, res, next) => {
   console.log(err, '<-- log from handleErrors function');
-
-
   if (errLookup[err.code]) {
     res
       .status(errLookup[err.code].status)
