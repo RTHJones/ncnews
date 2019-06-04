@@ -25,19 +25,32 @@ exports.methodNotAllowed = (req, res) => {
   res.status(405).send({ msg: 'Method Not Allowed' });
 };
 
-exports.handleErrors = (err, req, res, next) => {
-  console.log(err, '<-- log from handleErrors function');
+
+exports.handleSqlError = (err, req, res, next) => {
+  console.log(err, '<-- log from handleSqlError function');
   if (errLookup[err.code]) {
     res
       .status(errLookup[err.code].status)
       .send(errLookup[err.code].msg)
+  } else {
+    next(err);
   }
-  else if (err.status === 400 || err.status === 404) {
+}
+
+exports.handleErrors = (err, req, res, next) => {
+  console.log(err, '<-- log from handleErrors function');
+  // if (errLookup[err.code]) {
+  //   res
+  //     .status(errLookup[err.code].status)
+  //     .send(errLookup[err.code].msg)
+  // }
+  // else 
+  if (err.status === 400 || err.status === 404) {
     res
       .status(err.status)
       .send(err.msg)
   }
-  else if (err.status = 422) {
+  else if (err.status === 422) {
     res
       .status(err.status)
       .send(`The data provided is incorrect or incomplete, it can not be processed!`)
