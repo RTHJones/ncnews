@@ -17,14 +17,14 @@ apiRouter
     'api/articles': {
       'GET': {
         '/:article_id': 'returns a specific article',
-        '/': 'returns all articles',
-        '/:article_id/comments': 'returns all comments for a specific article'
+        '/': 'returns all articles, accepts sort_by, author, topic, order asc/desc, queries',
+        '/:article_id/comments': 'returns all comments for a specific article, accepts sort_by & order asc/desc queries'
       },
       'PATCH': {
-        '/articles?inc_votes=1': 'increases vote count on specific article'
+        '/:article_id': 'increases vote count on specific article, when sent "inc_votes" value in body of request'
       },
       'POST': {
-        '/:article_id/comments?username=:username&body=commenttext': 'adds comment body to specific article and attributes it to username'
+        '/:article_id/comments': 'adds comment body to specific article and attributes it to username, when passed "username" and "body" values in body of request'
       }
     },
     'api/comments': {

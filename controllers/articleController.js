@@ -60,9 +60,7 @@ const getCommentsByArticleId = (req, res, next) => {
             if (!commentsData[0]) {
                 return Promise.reject({ status: 404, msg: `Article ${req.params.article_id} not found` })
             } else {
-                (commentsData) => {
-                    res.status(200).send({ comments: commentsData })
-                }
+                res.status(200).send({ comments: commentsData })
             }
         })
         .catch(next)
