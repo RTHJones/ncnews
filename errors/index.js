@@ -27,8 +27,9 @@ exports.methodNotAllowed = (req, res) => {
 
 
 exports.handleSqlError = (err, req, res, next) => {
-  console.log(err, '<-- log from handleSqlError function');
+
   if (errLookup[err.code]) {
+    console.log(err, '<-- log from handleSqlError function');
     res
       .status(errLookup[err.code].status)
       .send(errLookup[err.code].msg)
@@ -38,26 +39,21 @@ exports.handleSqlError = (err, req, res, next) => {
 }
 
 exports.handleErrors = (err, req, res, next) => {
+  let msg422 = 'The data provided is incorrect or incomplete, it can\'t be processed!'
   console.log(err, '<-- log from handleErrors function');
-  // if (errLookup[err.code]) {
-  //   res
-  //     .status(errLookup[err.code].status)
-  //     .send(errLookup[err.code].msg)
-  // }
-  // else 
-  if (err.status === 400 || err.status === 404) {
-    res
-      .status(err.status)
-      .send(err.msg)
+  switch (err.status) {
+  case 400: { /* same as case 404 hence no break */ }
+    case 404: { res.status(err.status).send(err.msg) };
+      break;
+    case 422: { res.status(err.status).send(msg422) };
+      break;
+    default: next(err)
   }
-  else if (err.status === 422) {
-    res
-      .status(err.status)
-      .send(`The data provided is incorrect or incomplete, it can not be processed!`)
-  }
-  else {
-    res
-      .status(500)
-      .send({ msg: 'Internal Server Error' });
-  }
+}
+
+exports.handle500 = (err, req, res, next) => {
+  console.log(err, '<-- log from handle500 function');
+  res
+    .status(500)
+    .send({ msg: 'Internal Server Error' });
 }

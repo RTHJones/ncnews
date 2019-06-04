@@ -92,16 +92,16 @@ describe('/', () => {
               expect(res.body.article).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
             });
         });
-        // it('returns the comments for the correct article, with the correct object properties', () => {
-        //   return request(app)
-        //     .get('/api/articles/1/comments')
-        //     .expect(200)
-        //     .then(res => {
-        //       console.log(res.body)
-        //       expect(res.body.comments).to.be.an('array');
-        //     });
-        // });
-        /// CHANGE THIS TO ARTICLE 2 TO CHECK IT CAN TELL IF ARTICLE HAS NO COMMENT OR ARTICLE DOES NOT EXIST!!
+        it('returns the comments for the correct article, with the correct object properties', () => {
+          return request(app)
+            .get('/api/articles/2/comments')
+            .expect(200)
+            .then(res => {
+              console.log(res.body)
+              expect(res.body.comments).to.be.an('array');
+            });
+        });
+        /// CHANGE THE ABOVE TO ARTICLE 2 TO CHECK IT CAN TELL IF ARTICLE HAS NO COMMENT OR ARTICLE DOES NOT EXIST!!
         it('returns the comments for the correct article, with the correct object properties', () => {
           return request(app)
             .get('/api/articles/1/comments')
@@ -111,7 +111,7 @@ describe('/', () => {
               expect(res.body.comments[0]).to.contain.keys('author', 'comment_id', 'body', 'created_at', 'votes')
             });
         });
-        it.only('posts comment to the correct article, and returns that comment', () => {
+        it('posts comment to the correct article, and returns that comment', () => {
           return request(app)
             .post('/api/articles/1/comments')
             .send({ 'username': 'rogersop', 'body': 'thisismysecondcommentpost' })
