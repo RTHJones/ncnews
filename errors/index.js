@@ -39,10 +39,10 @@ exports.handleSqlError = (err, req, res, next) => {
 }
 
 exports.handleErrors = (err, req, res, next) => {
-  let msg422 = 'The data provided is incorrect or incomplete, it can\'t be processed!'
+  const msg422 = 'The data provided is incorrect or incomplete, it can\'t be processed!'
   console.log(err, '<-- log from handleErrors function');
   switch (err.status) {
-  case 400: { /* same as case 404 hence no break */ }
+    case 400: { /* same as case 404 hence no break */ }
     case 404: { res.status(err.status).send(err.msg) };
       break;
     case 422: { res.status(err.status).send(msg422) };
