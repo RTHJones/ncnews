@@ -1,7 +1,7 @@
 const connection = require('../connection.js')
 
 
-exports.fetchAllArticles = ({ sort_by, order, author, topic }) => {
+exports.fetchAllArticles = ({ sort_by, order, author, topic, limit = 10, p = 1 }) => {
     return connection
         .select(
             'articles.author',
@@ -24,6 +24,8 @@ exports.fetchAllArticles = ({ sort_by, order, author, topic }) => {
         .leftJoin('comments', 'articles.article_id', 'comments.article_id')
         .groupBy('articles.article_id')
         .orderBy(sort_by || 'created_at', order || 'desc')
+        .offset((p - 1) * limit)
+        .limit(limit)
 };
 
 exports.fetchArticleById = ({ article_id }) => {
@@ -50,7 +52,7 @@ exports.fetchArticleAndPatch = ({ article_id }, { inc_votes }) => {
         .returning('*')
 }
 
-exports.fetchCommentsByArticleId = ({ article_id }, { sort_by, order }) => {
+exports.fetchCommentsByArticleId = ({ article_id }, { sort_by, order, p = 1, limit = 10 }) => {
     return connection
         .select(
             'comment_id',
@@ -62,6 +64,8 @@ exports.fetchCommentsByArticleId = ({ article_id }, { sort_by, order }) => {
         .from('comments')
         .where({ 'article_id': article_id })
         .orderBy(sort_by || 'created_at', order || 'desc')
+        .offset((p - 1) * limit)
+        .limit(limit)
 }
 
 exports.postNewComment = ({ article_id }, { username, body }) => {

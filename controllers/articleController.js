@@ -4,7 +4,8 @@ const {
     fetchArticleAndPatch,
     fetchCommentsByArticleId,
     postNewComment,
-    checkArticleExists
+    checkArticleExists,
+    countArticles
 } = require('../models/articleModels');
 
 const getAllArticles = (req, res, next) => {
