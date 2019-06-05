@@ -69,3 +69,11 @@ exports.postNewComment = ({ article_id }, { username, body }) => {
         .insert({ 'author': username, 'body': body, 'article_id': article_id })
         .returning('*')
 }
+
+exports.checkArticleExists = (article_id) => {
+    return connection
+        .select('*')
+        .from('articles')
+        .where({ 'article_id': article_id })
+        .returning('*')
+}

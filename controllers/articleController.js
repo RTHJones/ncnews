@@ -3,7 +3,8 @@ const {
     fetchArticleById,
     fetchArticleAndPatch,
     fetchCommentsByArticleId,
-    postNewComment
+    postNewComment,
+    checkArticleExists
 } = require('../models/articleModels');
 
 const getAllArticles = (req, res, next) => {
@@ -55,21 +56,41 @@ const patchArticleById = (req, res, next) => {
 }
 
 const getCommentsByArticleId = (req, res, next) => {
-    fetchCommentsByArticleId(req.params, req.query)
-        .then((commentsData) => {
-            if (!commentsData[0]) {
-                return Promise.reject({ status: 404, msg: `Article ${req.params.article_id} not found` })
-            } else {
-                res.status(200).send({ comments: commentsData })
+    let id = req.params.article_id
+    checkArticleExists(id)
+        .then(articleData => {
+            if (articleData[0]) {
+                fetchCommentsByArticleId(req.params, req.query)
+                    .then((commentsData) => {
+                        if (!commentsData[0]) {
+                            return Promise.reject({ status: 404, msg: `No comments found for article ${id}` })
+                        } else {
+                            res.status(200).send({ comments: commentsData })
+                        }
+                    })
+                    .catch(next)
+            }
+            else {
+                return Promise.reject({ status: 404, msg: `Article ${id} not found` })
             }
         })
         .catch(next)
 }
 
+
 const postCommenttoArticle = (req, res, next) => {
-    postNewComment(req.params, req.body)
-        .then((commentsData) => {
-            res.status(201).send({ comment: commentsData[0] })
+    let id = req.params.article_id;
+    checkArticleExists(id)
+        .then(articleData => {
+            if (articleData[0]) {
+                postNewComment(req.params, req.body)
+                    .then((commentsData) => {
+                        res.status(201).send({ comment: commentsData[0] })
+                    })
+                    .catch(next)
+            } else {
+                return Promise.reject({ status: 404, msg: `Article ${id} not found` })
+            }
         })
         .catch(next)
 }

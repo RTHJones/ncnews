@@ -87,21 +87,18 @@ describe('/', () => {
             .get('/api/articles/1')
             .expect(200)
             .then(res => {
-              console.log(res.body)
               expect(res.body.article).to.be.an('object');
               expect(res.body.article).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
             });
         });
-        it('returns the comments for the correct article, with the correct object properties', () => {
+        it.only('returns 404 when no comments exist for that article', () => {
           return request(app)
             .get('/api/articles/2/comments')
-            .expect(200)
+            .expect(404)
             .then(res => {
-              console.log(res.body)
-              expect(res.body.comments).to.be.an('array');
+              expect(res.text).to.equal('No comments found for article 2');
             });
         });
-        /// CHANGE THE ABOVE TO ARTICLE 2 TO CHECK IT CAN TELL IF ARTICLE HAS NO COMMENT OR ARTICLE DOES NOT EXIST!!
         it('returns the comments for the correct article, with the correct object properties', () => {
           return request(app)
             .get('/api/articles/1/comments')
