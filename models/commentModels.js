@@ -14,3 +14,10 @@ exports.commentDeleter = ({ comment_id }) => {
         .del()
         .returning('*')
 }
+exports.checkCommentExists = (comment_id) => {
+    return connection
+        .select('*')
+        .from('comments')
+        .where({ 'comment_id': comment_id })
+        .returning('*')
+}

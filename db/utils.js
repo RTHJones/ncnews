@@ -35,19 +35,9 @@ const articleIdReferencer = (commentData, lookupObj) => {
     return newData
 }
 
-const checkCommentExists = (comment_id) => {
-    return connection
-        .select('*')
-        .from('comments')
-        .where({ 'comment_id': comment_id })
-        .returning('*')
-}
-
-
 module.exports = {
     timeConverter,
     articleIdLookup,
     fieldConverter,
-    articleIdReferencer,
-    checkCommentExists
+    articleIdReferencer
 }
