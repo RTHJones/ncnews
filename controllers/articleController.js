@@ -9,22 +9,29 @@ const {
 } = require('../models/articleModels');
 
 const getAllArticles = (req, res, next) => {
-    fetchAllArticles(req.query)
-        .then((articleData) => {
-            if (articleData[0]) {
-                res.status(200).send({ articles: articleData })
-            }
-            else {
-                if (req.query.author) {
-                    return Promise.reject({ status: 404, msg: 'Author not found' })
-                }
-                else if (req.query.topic) {
-                    return Promise.reject({ status: 404, msg: 'Topic not found' })
-                }
-                else return Promise.reject({ status: 404, msg: 'Not Found' })
-            }
+    countArticles(req.query)
+        .then(articles => {
+            req.query.totalCount = articles.length
         })
-        .catch(next);
+        .then(
+            fetchAllArticles(req.query)
+                .then((articleData) => {
+                    if (articleData[0]) {
+                        res.status(200).send({ total_count: req.query.totalCount, articles: articleData })
+                    }
+                    else {
+                        if (req.query.author) {
+                            return Promise.reject({ status: 404, msg: 'Author not found' })
+                        }
+                        else if (req.query.topic) {
+                            return Promise.reject({ status: 404, msg: 'Topic not found' })
+                        }
+                        else return Promise.reject({ status: 404, msg: 'Not Found' })
+                    }
+                })
+                .catch(next)
+        )
+        .catch(next)
 };
 
 

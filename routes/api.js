@@ -17,8 +17,8 @@ apiRouter
     'api/articles': {
       'GET': {
         '/:article_id': 'returns a specific article',
-        '/': 'returns all articles, accepts sort_by, author, topic, order asc/desc, queries',
-        '/:article_id/comments': 'returns all comments for a specific article, accepts sort_by & order asc/desc queries'
+        '/': 'returns all articles, accepts sort_by, author, topic, order asc/desc, limit and p (page number) queries',
+        '/:article_id/comments': 'returns all comments for a specific article, accepts limit, p (page number) sort_by & order asc/desc queries'
       },
       'PATCH': {
         '/:article_id': 'increases vote count on specific article, when sent "inc_votes" value in body of request'
