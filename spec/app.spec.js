@@ -91,7 +91,7 @@ describe('/', () => {
               expect(res.body.article).to.contain.keys('author', 'title', 'article_id', 'body', 'topic', 'created_at', 'votes', 'comment_count')
             });
         });
-        it.only('returns 404 when no comments exist for that article', () => {
+        it('returns 404 when no comments exist for that article', () => {
           return request(app)
             .get('/api/articles/2/comments')
             .expect(404)
@@ -173,7 +173,7 @@ describe('/', () => {
             .get('/api/users/robinjones')
             .expect(404)
             .then(res => {
-              expect(res.error.text).to.equal('User: "robinjones" does not exist.');
+              expect(res.error.text).to.equal('User: "robinjones" not found.');
             });
         });
       })

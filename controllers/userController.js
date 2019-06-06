@@ -1,4 +1,12 @@
-const { fetchUserByUsername } = require('../models/userModels')
+const { fetchAllUsers, fetchUserByUsername } = require('../models/userModels')
+
+const getAllUsers = (req, res, next) => {
+    fetchAllUsers(req.query)
+        .then(usersData => {
+            res.status(200).send({ users: usersData })
+        })
+        .catch(next)
+}
 
 const getUserByUsername = (req, res, next) => {
     fetchUserByUsername(req.params)
@@ -15,4 +23,4 @@ const getUserByUsername = (req, res, next) => {
 
 
 
-module.exports = { getUserByUsername }
+module.exports = { getAllUsers, getUserByUsername }

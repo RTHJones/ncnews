@@ -11,6 +11,7 @@ apiRouter.use('/users', userRouter);
 apiRouter
   .route('/')
   .get((req, res) => res.send({
+    'api/users': { 'GET': 'returns a list of all users' },
     'api/users/:username': {
       'GET': 'returns user details for that username'
     },

@@ -1,12 +1,12 @@
 const userRouter = require('express').Router();
 const { methodNotAllowed } = require('../errors');
-const { getUserByUsername } = require('../controllers/userController')
+const { getUserByUsername, getAllUsers } = require('../controllers/userController')
 
 
 
 userRouter
     .route('/')
-    .get((req, res) => res.send('userRouter doing fine'))
+    .get(getAllUsers)
     .all(methodNotAllowed);
 
 userRouter
