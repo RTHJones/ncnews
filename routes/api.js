@@ -30,6 +30,7 @@ apiRouter
         '/:article_id': 'increases vote count on specific article, when sent "inc_votes" value in body of request'
       },
       'POST': {
+        '/': 'creates new article when passed title, topic, username, and body in request body',
         '/:article_id/comments': 'adds comment body to specific article and attributes it to username, when passed "username" and "body" values in body of request'
       },
       'DELETE': {
