@@ -1,6 +1,6 @@
 const commentRouter = require('express').Router();
 const { methodNotAllowed } = require('../errors');
-const { voteOnCommentById, deleteCommentById } = require('../controllers/commentController')
+const { getCommentById, voteOnCommentById, deleteCommentById } = require('../controllers/commentController')
 
 
 
@@ -11,6 +11,7 @@ commentRouter
 
 commentRouter
     .route('/:comment_id')
+    .get(getCommentById)
     .patch(voteOnCommentById)
     .delete(deleteCommentById)
     .all(methodNotAllowed)

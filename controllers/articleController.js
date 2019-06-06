@@ -1,12 +1,16 @@
 const {
+    countArticles,
     fetchAllArticles,
     fetchArticleById,
     fetchArticleAndPatch,
     fetchCommentsByArticleId,
     postNewComment,
     checkArticleExists,
-    countArticles
+    fetchArticleAndDelete,
+    deleteAllCommentsByArticleId
 } = require('../models/articleModels');
+
+
 
 const getAllArticles = (req, res, next) => {
     countArticles(req.query)
@@ -103,10 +107,26 @@ const postCommenttoArticle = (req, res, next) => {
         .catch(next)
 }
 
+const deleteArticleById = (req, res, next) => {
+    let id = req.params.article_id;
+    deleteAllCommentsByArticleId(id)
+        .then(
+            fetchArticleAndDelete(id)
+                .then(articleData => {
+                    console.log(`The following article and its associated comments have been deleted (Article ${id})`, articleData)
+                    if (articleData[0]) res.status(204).send(articleData)
+                    else return Promise.reject({ status: 404, msg: `Article ${id} not found` })
+                })
+                .catch(next)
+        )
+        .catch(next)
+}
+
 module.exports = {
     getAllArticles,
     getArticleById,
     patchArticleById,
     getCommentsByArticleId,
-    postCommenttoArticle
+    postCommenttoArticle,
+    deleteArticleById,
 };

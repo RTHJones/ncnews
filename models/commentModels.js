@@ -14,7 +14,7 @@ exports.commentDeleter = ({ comment_id }) => {
         .del()
         .returning('*')
 }
-exports.checkCommentExists = (comment_id) => {
+exports.fetchCommentById = (comment_id) => {
     return connection
         .select('*')
         .from('comments')

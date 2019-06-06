@@ -104,3 +104,19 @@ exports.checkArticleExists = (article_id) => {
         .where({ 'article_id': article_id })
         .returning('*')
 }
+
+exports.fetchArticleAndDelete = (article_id) => {
+    return connection('articles')
+        .where({ 'article_id': article_id })
+        .del()
+        .returning('*')
+}
+
+exports.deleteAllCommentsByArticleId = (article_id) => {
+    return connection
+        .select('*')
+        .from('comments')
+        .where({ 'article_id': article_id })
+        .del('*')
+        .returning('*')
+}

@@ -11,9 +11,11 @@ apiRouter.use('/users', userRouter);
 apiRouter
   .route('/')
   .get((req, res) => res.send({
-    'api/users': { 'GET': 'returns a list of all users' },
-    'api/users/:username': {
-      'GET': 'returns user details for that username'
+    'api/users': {
+      'GET': {
+        '/': 'returns a list of all users, take page(p), limit, order, and sort_by queries',
+        '/:username': 'returns user details for that username'
+      },
     },
     'api/articles': {
       'GET': {
@@ -26,11 +28,18 @@ apiRouter
       },
       'POST': {
         '/:article_id/comments': 'adds comment body to specific article and attributes it to username, when passed "username" and "body" values in body of request'
+      },
+      'DELETE': {
+        '/:article_id': 'deletes a specific article and console logs the deleted article'
+
       }
     },
     'api/comments': {
       'GET': {
         '/:comment_id': 'returns a specific comment'
+      },
+      'PATCH': {
+        '/:comment_id': 'requires inc_votes object in body, changes article votes by that value'
       },
       'DELETE': {
         '/comment_id': 'deletes a specific comment and logs that comment to the console for confirmation'

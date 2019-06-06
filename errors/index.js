@@ -5,7 +5,7 @@ const errLookup = {
   },
   '23503': {
     status: 422,
-    msg: 'User input not recognised in database'
+    msg: 'User request can not be processed'
   },
   '42703': {
     status: 400,
