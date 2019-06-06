@@ -120,3 +120,9 @@ exports.deleteAllCommentsByArticleId = (article_id) => {
         .del('*')
         .returning('*')
 }
+
+exports.createNewArticle = ({ username, title, body, topic, }) => {
+    return connection('articles')
+        .insert({ 'author': username, 'title': title, 'body': body, 'topic': topic })
+        .returning('*')
+}

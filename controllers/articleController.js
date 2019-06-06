@@ -7,7 +7,8 @@ const {
     postNewComment,
     checkArticleExists,
     fetchArticleAndDelete,
-    deleteAllCommentsByArticleId
+    deleteAllCommentsByArticleId,
+    createNewArticle
 } = require('../models/articleModels');
 
 
@@ -122,6 +123,19 @@ const deleteArticleById = (req, res, next) => {
         .catch(next)
 }
 
+const postNewArticle = (req, res, next) => {
+    createNewArticle(req.body)
+        .then(newArticleData => {
+            if (newArticleData[0]) {
+                console.log('New article created:', newArticleData[0])
+                res.status(201).send({ 'New Article Created': newArticleData[0] })
+            } else {
+                return Promise.reject({ status: 422, msg: 'Unable to create article' })
+            }
+        })
+        .catch(next)
+}
+
 module.exports = {
     getAllArticles,
     getArticleById,
@@ -129,4 +143,5 @@ module.exports = {
     getCommentsByArticleId,
     postCommenttoArticle,
     deleteArticleById,
+    postNewArticle
 };
