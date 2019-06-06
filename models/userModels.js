@@ -17,3 +17,9 @@ exports.fetchUserByUsername = ({ username }) => {
         .where({ 'username': username })
         .returning('*')
 }
+
+exports.addNewUser = ({ username, name, avatar_url }) => {
+    return connection('users')
+        .insert({ 'username': username, 'name': name, 'avatar_url': avatar_url })
+        .returning('*')
+}

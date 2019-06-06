@@ -16,6 +16,9 @@ apiRouter
         '/': 'returns a list of all users, take page(p), limit, order, and sort_by queries',
         '/:username': 'returns user details for that username'
       },
+      'POST': {
+        '/': 'allows creation of new user in database, requires user details in request body - {name, username}, also accepts {img url} in body'
+      }
     },
     'api/articles': {
       'GET': {

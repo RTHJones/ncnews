@@ -6,3 +6,9 @@ exports.fetchAllTopics = () => {
 };
 
 
+exports.createTopic = ({ slug, description }) => {
+    return connection('topics')
+        .insert({ 'slug': slug, 'description': description })
+        .returning('*')
+}
+

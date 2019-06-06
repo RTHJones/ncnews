@@ -1,4 +1,4 @@
-const { fetchAllUsers, fetchUserByUsername } = require('../models/userModels')
+const { fetchAllUsers, fetchUserByUsername, addNewUser } = require('../models/userModels')
 
 const getAllUsers = (req, res, next) => {
     fetchAllUsers(req.query)
@@ -21,6 +21,18 @@ const getUserByUsername = (req, res, next) => {
         .catch(next)
 };
 
+const addUser = (req, res, next) => {
+    addNewUser(req.body)
+        .then(newUserData => {
+            if (newUserData[0]) {
+                console.log("The following user has been created: ", newUserData)
+                res.status(201).send({ 'New User Created' : newUserData[0] })
+            } else {
+                return Promise.reject({status: 422, msg: "Failed to create new user"})
+            }
+        })
+        .catch(next)
+}
 
 
-module.exports = { getAllUsers, getUserByUsername }
+module.exports = { getAllUsers, getUserByUsername, addUser }
