@@ -111,7 +111,7 @@ const postCommenttoArticle = (req, res, next) => {
 const deleteArticleById = (req, res, next) => {
     let id = req.params.article_id;
     deleteAllCommentsByArticleId(id)
-        .then(
+        .then(() => {
             fetchArticleAndDelete(id)
                 .then(articleData => {
                     console.log(`The following article and its associated comments have been deleted (Article ${id})`, articleData)
@@ -119,7 +119,7 @@ const deleteArticleById = (req, res, next) => {
                     else return Promise.reject({ status: 404, msg: `Article ${id} not found` })
                 })
                 .catch(next)
-        )
+        })
         .catch(next)
 }
 
