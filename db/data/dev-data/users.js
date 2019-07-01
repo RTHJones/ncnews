@@ -2,12 +2,12 @@ module.exports = [
   {
     username: 'tickle122',
     name: 'Tom Tickle',
-    avatar_url: 'https://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg',
+    avatar_url: 'https://metrouk2.files.wordpress.com/2016/08/mrmen1.jpg?resize=540,304',
   },
   {
     username: 'grumpy19',
     name: 'Paul Grump',
-    avatar_url: 'https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg',
+    avatar_url: 'https://ih0.redbubble.net/image.623813976.4374/raf,750x1000,075,t,fafafa:ca443f4786.jpg',
   },
   {
     username: 'happyamy2016',
@@ -17,12 +17,12 @@ module.exports = [
   {
     username: 'cooljmessy',
     name: 'Peter Messy',
-    avatar_url: 'https://i.imgur.com/WfX0Neu.jpg',
+    avatar_url: 'https://vignette.wikia.nocookie.net/mrmen/images/1/1a/MR_MESSY_4A.jpg/revision/latest/scale-to-width-down/250?cb=20170730171002',
   },
   {
     username: 'weegembump',
     name: 'Gemma Bump',
-    avatar_url: 'https://www.upandrunning.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/m/r/mr-bump.jpg',
+    avatar_url: 'https://cdn.shopify.com/s/files/1/0194/0815/8819/t/2/assets/cp-square-mr-bump.jpg?21857',
   },
   {
     username: 'jessjelly',
