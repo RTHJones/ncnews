@@ -54,7 +54,7 @@ apiRouter
         '/': 'returns all topics',
       },
       'POST': {
-        '/': 'requires slug and description fields in body, allows creation of new topic and returns that topics details as JSON'
+        '/': 'requires slug and description fields in body, imgURL optional, allows creation of new topic and returns that topics details as JSON'
       }
     }
   }))
