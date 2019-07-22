@@ -1,0 +1,15 @@
+                     List of relations
+ Schema |              Name              |   Type   | Owner 
+--------+--------------------------------+----------+-------
+ public | articles                       | table    | robin
+ public | articles_article_id_seq        | sequence | robin
+ public | comments                       | table    | robin
+ public | comments_comment_id_seq        | sequence | robin
+ public | knex_migrations                | table    | robin
+ public | knex_migrations_id_seq         | sequence | robin
+ public | knex_migrations_lock           | table    | robin
+ public | knex_migrations_lock_index_seq | sequence | robin
+ public | topics                         | table    | robin
+ public | users                          | table    | robin
+(10 rows)
+

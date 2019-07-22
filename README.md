@@ -1,6 +1,6 @@
 # **READ ME**
 ---
-## *'robins-nc-news'*
+## *'robins-nc-news'/'developing news'*
 
 This is a demonstration app (back end) developed by Robin Jones whilst studying at Northcoders Manchester. It provides articles, comments, and (for logged in users) the ability to add, remove and vote on those articles and comments. The database and api are hosted and accessible via heroku at the address below:
 
