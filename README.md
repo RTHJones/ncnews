@@ -17,7 +17,7 @@ A GET request sent to the above address + /api will return a JSON object detaili
 
 ## Forking and Cloning
 
-The project can be forked and cloned to a local machine, where various scripts can be run as detailed below. The database used is [psql](https://www.postgresql.org/), connections are managed by [Knex](https://knexjs.org), [node](https://www.npmjs.com/) is used to run scripts, live reloading for the server is handled with [nodemon](https://www.npmjs.com/package/nodemon), and [Insomnia](https://insomnia.rest/) should be installed in order to make requests to localhost. The project was originally constructed using [Yo](https://www.npmjs.com/package/yo) and [Knexpress](https://www.npmjs.com/package/generator-knexpress).
+The project can be forked and cloned to a local machine, where various scripts can be run as detailed below. The database used is [psql](https://www.postgresql.org/), connections are managed by [Knex](https://knexjs.org), [node](https://nodejs.org/en/) /[npm](https://www.npmjs.com/) is used to run scripts, live reloading for the server is handled with [nodemon](https://www.npmjs.com/package/nodemon), and [Insomnia](https://insomnia.rest/) should be installed in order to make requests to localhost. The project was originally constructed using [Yo](https://www.npmjs.com/package/yo) and [Knexpress](https://www.npmjs.com/package/generator-knexpress).
 
 A new knexfile.js should be added to the root directory to deal with the connection setup and config. The one used locally to create the project has not been included in the git commits and uploads.
 
