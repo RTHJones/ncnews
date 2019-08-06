@@ -2,7 +2,7 @@ module.exports = [
   {
     username: 'tickle122',
     name: 'Tom Tickle',
-    avatar_url: 'https://metrouk2.files.wordpress.com/2016/08/mrmen1.jpg?resize=540,304',
+    avatar_url: 'https://i0.wp.com/www.4ye.co.uk/wp-content/uploads/2015/01/Mr-Tickle.jpg',
   },
   {
     username: 'grumpy19',
